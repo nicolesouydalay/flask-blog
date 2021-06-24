@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js"></script>
+    <script src="../static/styles/style.js"></script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:title" content="Personal Portfolio">
+    <meta property="og:description" content="My Personal Portfolio">
+    <meta property="og:url" content="{{ url }}">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Local CSS -->
+    <link lang='sass' rel="stylesheet" href="./static/styles/main.css">
+    <link lang='sass' rel="stylesheet" href="./static/styles/contact-me.css">
+
+    <!-- Font Awesome -->
+    <link rel='icon' href='./static/img/favicon.ico' type='image/x-icon' />
+    <script src="https://kit.fontawesome.com/b72669b8fc.js" crossorigin="anonymous"></script>
+
+    <title>{{ title }}Software Developer</title>
+</head>
+
+<body>
+<div class="cursor"></div>
+<section id="contact-me">
+    <div class="container-contact100">
+    <div class="wrap-contact100">
+        <form action ="{{ url_for('register') }}" method="POST" class="contact100-form validate-form">
+            <span class="contact100-form-title">
+                <h5 class="card-title">r<B>e</B>g<B>i</b>s<b>t</b>e<B>r</B></h5>
+            </span>
+
+            <div class="wrap-input100 validate-input bg1" data-validate="{'required':true}">
+                <span class="label-input100">USERNAME</span>
+                <input class="input100" type="text" name="username" placeholder="Username">
+            </div>
+
+            <div class="wrap-input100 validate-input bg1" data-validate="{'required:true}">
+                <span class="label-input100">PASSWORD</span>
+                <input class="input100" type="password" name="password" placeholder="Password">
+            </div>
+            {% if message %}
+                <p>{{ message }}</p>
+            {% endif %}
+            <div class="container-contact100-form-btn">
+                <button class="contact100-form-btn">
+                    <span>
+                        Submit
+                    </span>
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+</section>
+
+<script>
+document.body.addEventListener("mousemove", (evt) => {
+const mouseX = evt.clientX;
+const mouseY = evt.clientY;
+
+gsap.set(".cursor", {
+  x: mouseX,
+  y: mouseY
+});
+})
+
+$('input[name=username]').on('input', function() {
+  var c = this.selectionStart,
+      r = /[^a-z0-9_]/gi,
+      v = $(this).val();
+  if(r.test(v)) {
+    $(this).val(v.replace(r, ''));
+    c--;
+  }
+  this.setSelectionRange(c, c);
+});
+
+$('input[name=password]').on('input', function() {
+  var c = this.selectionStart,
+      r = /\s/gi,
+      v = $(this).val();
+  if(r.test(v)) {
+    $(this).val(v.replace(r, ''));
+    c--;
+  }
+  this.setSelectionRange(c, c);
+});
+
+</script>
+</body>
+</html>
+
