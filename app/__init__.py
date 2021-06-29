@@ -44,9 +44,11 @@ def register():
             )
             db.commit()
             message = f"User {username} created successfully."
-
-        return render_template('register_template.html', title="Nicole Souydalay | ", url=os.getenv("URL"), 
-            message=message), 418
+            return render_template('register_template.html', title="Nicole Souydalay | ", url=os.getenv("URL"), 
+                message=message), 200
+        else:
+            return render_template('register_template.html', title="Nicole Souydalay | ", url=os.getenv("URL"), 
+                message=message), 418
 
     return render_template('register_template.html', title="Nicole Souydalay | ", url=os.getenv("URL"))
 
