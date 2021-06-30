@@ -6,3 +6,6 @@ Jinja2==3.0.1
 MarkupSafe==2.0.1
 python-dotenv==0.17.1
 Werkzeug==2.0.1
+Flask-Migrate==3.0.1
+Flask-SQLAlchemy==2.5.1
+SQLAlchemy==1.4.19
