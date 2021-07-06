@@ -31,4 +31,4 @@ jobs:
 
             - name: Run Buildx
               run: |
-              docker build . # will run buildx
+              docker build .
