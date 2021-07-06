@@ -31,3 +31,4 @@ jobs:
               with:
                 black: true
                 flake8: true
+                flake_args: "--max-line-length=88"
