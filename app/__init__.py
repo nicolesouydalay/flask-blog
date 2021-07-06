@@ -42,9 +42,7 @@ class UserModel(db.Model):
 @app.route("/")
 def index():
     return render_template(
-        "index.html", title="Nicole Souydalay | ", 
-        url=os.getenv("URL"), 
-        name="NICOLE"
+        "index.html", title="Nicole Souydalay | ", url=os.getenv("URL"), name="NICOLE"
     )
 
 
