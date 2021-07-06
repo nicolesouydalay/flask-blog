@@ -8,22 +8,25 @@ from flask_migrate import Migrate
 app = Flask(__name__)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://{user}:{passwd}\
-    @{host}:{port}/{table}'.format(
+app.config[
+    "SQLALCHEMY_DATABASE_URI"
+    ] = "postgresql+psycopg2://{user}:{passwd}\
+    @{host}:{port}/{table}".format(
     user=os.getenv('POSTGRES_USER'),
     passwd=os.getenv('POSTGRES_PASSWORD'),
     host=os.getenv('POSTGRES_HOST'),
     port=5432,
-    table=os.getenv('POSTGRES_DB'))
+    table=os.getenv('POSTGRES_DB'),
+)
 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 
 class UserModel(db.Model):
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
     username = db.Column(db.String(), primary_key=True)
     password = db.Column(db.String())
@@ -36,29 +39,30 @@ class UserModel(db.Model):
         return f"<User {self.username}>"
 
 
-@app.route('/')
+@app.route("/")
 def index():
-    return render_template('index.html', title="Nicole Souydalay | ", \
-        url=os.getenv("URL"), name="NICOLE")
+    return render_template(
+        "index.html", title="Nicole Souydalay | ", url=os.getenv("URL"), name="NICOLE"
+    )
 
 
-@app.route('/health', methods=['GET'])
+@app.route("/health", methods=["GET"])
 def health():
-    return 'Works'
+    return "Works"
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route("/register", methods=["GET", "POST"])
 def register():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
 
         error = None
 
         if not username:
-            error = 'Username is required.'
+            error = "Username is required."
         elif not password:
-            error = 'Password is required.'
+            error = "Password is required."
         elif UserModel.query.filter_by(username=username).first() is not None:
             error = f"User {username} is already registered."
 
@@ -68,48 +72,80 @@ def register():
             db.session.add(new_user)
             db.session.commit()
             message = f"User {username} created successfully."
-            return render_template('register_template.html', \
-                title="Nicole Souydalay | ", url=os.getenv("URL"), message=message), 200
+            return (
+                render_template(
+                    "register_template.html",
+                    title="Nicole Souydalay | ",
+                    url=os.getenv("URL"), message=message
+                ), 
+                200,
+            )
         else:
-            return render_template('register_template.html', \
-                title="Nicole Souydalay | ", url=os.getenv("URL"), message=message), 418
+            return (
+                render_template(
+                    "register_template.html",
+                    title="Nicole Souydalay | ",
+                    url=os.getenv("URL"),
+                    message=message
+                ), 
+                418,
+            )
 
-    return render_template('register_template.html', \
-        title="Nicole Souydalay | ", url=os.getenv("URL"))
+    return render_template(
+        "register_template.html", title="Nicole Souydalay | ", url=os.getenv("URL")
+    )
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == 'POST':
+    if request.method == "POST":
 
-        username = request.form.get('username')
-        password = request.form.get('password')
+        username = request.form.get("username")
+        password = request.form.get("password")
         user = UserModel.query.filter_by(username=username).first()
         error = None
 
         if not username:
-            error = 'Username is required.'
+            error = "Username is required."
         elif not password:
-            error = 'Password is required.'
+            error = "Password is required."
         
         if error is not None:
-            return render_template('login_template.html', \
-                title="Nicole Souydalay | ", url=os.getenv("URL"), message=error), 418
+            return (
+                render_template(
+                    "login_template.html",
+                    title="Nicole Souydalay | ",
+                    url=os.getenv("URL"),
+                    message=error,
+                ),
+                418,
+            )
 
         if user is None:
-            error = 'Username does not exist.'
+            error = "Username does not exist."
         elif not check_password_hash(user.password, password):
-            error = 'Incorrect password.'
-
+            error = "Incorrect password."
         if error is None:
-            return render_template('login_template.html', \
-                title="Nicole Souydalay | ", url=os.getenv("URL"), \
-                    message="Login successful."), 200 
+            return (
+                render_template("login_template.html",
+                    title="Nicole Souydalay | ",
+                    url=os.getenv("URL"),
+                    message="Login successful.",
+                ),
+                200,
+            ) 
         else:
-            return render_template('login_template.html', \
-                title="Nicole Souydalay | ", url=os.getenv("URL"), \
-                    message=error), 418
+            return (
+                render_template(
+                    "login_template.html",
+                    title="Nicole Souydalay | ",
+                    url=os.getenv("URL"),
+                    message=error,
+                ), 
+                418,
+            )
     
-    return render_template('login_template.html', title="Nicole Souydalay | ",\
-        url=os.getenv("URL"))
+    return render_template(
+        "login_template.html", title="Nicole Souydalay | ", url=os.getenv("URL")
+    )
 
