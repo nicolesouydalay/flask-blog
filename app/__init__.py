@@ -8,7 +8,8 @@ from flask_migrate import Migrate
 app = Flask(__name__)
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://{user}:{passwd}@{host}:{port}/{table}'.format(
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://{user}:{passwd}\
+    @{host}:{port}/{table}'.format(
     user=os.getenv('POSTGRES_USER'),
     passwd=os.getenv('POSTGRES_PASSWORD'),
     host=os.getenv('POSTGRES_HOST'),
@@ -37,13 +38,16 @@ class UserModel(db.Model):
 
 @app.route('/')
 def index():
-    return render_template('index.html', title="Nicole Souydalay | ", url=os.getenv("URL"), name="NICOLE")
+    return render_template('index.html', title="Nicole Souydalay | ", \
+        url=os.getenv("URL"), name="NICOLE")
 
-@app.route('/health', methods = ['GET'])
+
+@app.route('/health', methods=['GET'])
 def health():
     return 'Works'
 
-@app.route('/register', methods = ['GET', 'POST'])
+
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form.get('username')
@@ -64,16 +68,17 @@ def register():
             db.session.add(new_user)
             db.session.commit()
             message = f"User {username} created successfully."
-            return render_template('register_template.html', title="Nicole Souydalay | ", url=os.getenv("URL"), 
-                message=message), 200
+            return render_template('register_template.html', \
+                title="Nicole Souydalay | ", url=os.getenv("URL"), message=message), 200
         else:
-            return render_template('register_template.html', title="Nicole Souydalay | ", url=os.getenv("URL"), 
-                message=message), 418
+            return render_template('register_template.html', \
+                title="Nicole Souydalay | ", url=os.getenv("URL"), message=message), 418
 
-    return render_template('register_template.html', title="Nicole Souydalay | ", url=os.getenv("URL"))
+    return render_template('register_template.html', \
+        title="Nicole Souydalay | ", url=os.getenv("URL"))
 
 
-@app.route('/login', methods = ['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
 
@@ -88,8 +93,8 @@ def login():
             error = 'Password is required.'
         
         if error is not None:
-            return render_template('login_template.html', title="Nicole Souydalay | ", url=os.getenv("URL"), 
-                message=error), 418
+            return render_template('login_template.html', \
+                title="Nicole Souydalay | ", url=os.getenv("URL"), message=error), 418
 
         if user is None:
             error = 'Username does not exist.'
@@ -97,12 +102,14 @@ def login():
             error = 'Incorrect password.'
 
         if error is None:
-            return render_template('login_template.html', title="Nicole Souydalay | ", url=os.getenv("URL"), 
-                message="Login successful."), 200 
+            return render_template('login_template.html', \
+                title="Nicole Souydalay | ", url=os.getenv("URL"), \
+                    message="Login successful."), 200 
         else:
-            return render_template('login_template.html', title="Nicole Souydalay | ", url=os.getenv("URL"), 
-                message=error), 418
+            return render_template('login_template.html', \
+                title="Nicole Souydalay | ", url=os.getenv("URL"), \
+                    message=error), 418
     
-    ## TODO: Return a login page
-    return render_template('login_template.html', title="Nicole Souydalay | ", url=os.getenv("URL"))
+    return render_template('login_template.html', title="Nicole Souydalay | ",\
+        url=os.getenv("URL"))
 
