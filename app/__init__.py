@@ -10,13 +10,13 @@ app = Flask(__name__)
 
 app.config[
     "SQLALCHEMY_DATABASE_URI"
-    ] = "postgresql+psycopg2://{user}:{passwd}\
+] = "postgresql+psycopg2://{user}:{passwd}\
     @{host}:{port}/{table}".format(
-    user=os.getenv('POSTGRES_USER'),
-    passwd=os.getenv('POSTGRES_PASSWORD'),
-    host=os.getenv('POSTGRES_HOST'),
+    user=os.getenv("POSTGRES_USER"),
+    passwd=os.getenv("POSTGRES_PASSWORD"),
+    host=os.getenv("POSTGRES_HOST"),
     port=5432,
-    table=os.getenv('POSTGRES_DB'),
+    table=os.getenv("POSTGRES_DB"),
 )
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -76,7 +76,8 @@ def register():
                 render_template(
                     "register_template.html",
                     title="Nicole Souydalay | ",
-                    url=os.getenv("URL"), message=message
+                    url=os.getenv("URL"), 
+                    message=message,
                 ), 
                 200,
             )
@@ -86,8 +87,8 @@ def register():
                     "register_template.html",
                     title="Nicole Souydalay | ",
                     url=os.getenv("URL"),
-                    message=message
-                ), 
+                    message=message,
+                ),
                 418,
             )
 
@@ -109,7 +110,7 @@ def login():
             error = "Username is required."
         elif not password:
             error = "Password is required."
-        
+
         if error is not None:
             return (
                 render_template(
@@ -127,13 +128,14 @@ def login():
             error = "Incorrect password."
         if error is None:
             return (
-                render_template("login_template.html",
+                render_template(
+                    "login_template.html",
                     title="Nicole Souydalay | ",
                     url=os.getenv("URL"),
                     message="Login successful.",
                 ),
                 200,
-            ) 
+            )
         else:
             return (
                 render_template(
@@ -141,11 +143,10 @@ def login():
                     title="Nicole Souydalay | ",
                     url=os.getenv("URL"),
                     message=error,
-                ), 
+                ),
                 418,
             )
-    
+
     return render_template(
         "login_template.html", title="Nicole Souydalay | ", url=os.getenv("URL")
     )
-
