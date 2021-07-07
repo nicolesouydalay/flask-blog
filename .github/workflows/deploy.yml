@@ -34,7 +34,9 @@ jobs:
           --hard origin/master && docker-compose up -d --build'
       
       - name: Print container information
-        run: docker-compose ps
+        run: |
+          docker-compose ps
       
       - name: Post deployment message to Discord
-        run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
+        run: |
+          curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
