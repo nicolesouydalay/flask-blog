@@ -43,9 +43,3 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Test deployment
-        run: |
-          chmod +x prod-test.sh
-          ./prod-test.sh
-          echo $?
