@@ -35,7 +35,7 @@ jobs:
       
       - name: Print container information
         run: |
-          docker-compose ps
+          ssh my-vm 'cd ${{ secrets.PROJECT_ROOT }} && docker-compose ps'
       
       - name: Post deployment message to Discord
         run: |
