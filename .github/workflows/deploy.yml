@@ -16,7 +16,6 @@ jobs:
 
       - name: Configure SSH
         run: |
-          cd ..
           mkdir -p ~/.ssh/
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy-key.pem
           chmod 600 ~/.ssh/deploy-key.pem
@@ -47,7 +46,6 @@ jobs:
 
       - name: Test deployment
         run: |
-          cd ../flask-blog/
           chmod +x prod-test.sh
           ./prod-test.sh
           echo $?
