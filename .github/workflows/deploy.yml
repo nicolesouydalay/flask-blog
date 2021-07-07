@@ -41,8 +41,10 @@ jobs:
         run: |
           curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
 
-      - name: Test deployment
+      - name: Checkout repository.
         uses: actions/checkout@v2
+
+      - name: Test deployment
         run: |
           chmod +x prod-test.sh
           ./prod-test.sh
