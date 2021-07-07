@@ -40,3 +40,9 @@ jobs:
       - name: Post deployment message to Discord
         run: |
           curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
+
+      - name: Test deployment
+        uses: actions/checkout@v2
+        run: |
+          chmod +x prod-test.sh
+          ./prod-test.sh
