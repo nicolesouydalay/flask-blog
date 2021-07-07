@@ -51,3 +51,7 @@ jobs:
           chmod +x prod-test.sh
           ./prod-test.sh
           echo $?
+
+      - name: Check deployment failure
+        if: ${{ failure() }}
+        run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "🚨 Deployment Failed"
