@@ -11,8 +11,12 @@ jobs:
     name: "Deploy to AWS EC2 Virtual Machine"
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Configure SSH
         run: |
+          cd ..
           mkdir -p ~/.ssh/
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/deploy-key.pem
           chmod 600 ~/.ssh/deploy-key.pem
@@ -41,5 +45,9 @@ jobs:
         run: |
           curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
 
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Test deployment
+        run: |
+          cd ../flask-blog/
+          chmod +x prod-test.sh
+          ./prod-test.sh
+          echo $?
