@@ -50,6 +50,9 @@ jobs:
         run: |
           chmod +x prod-test.sh
           ./prod-test.sh
+
+      - name: Save if deployment failed or not
+        run: |
           FAIL=$?
 
       - name: Check deployment failure
