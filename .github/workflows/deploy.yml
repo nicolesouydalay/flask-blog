@@ -50,7 +50,10 @@ jobs:
         run: |
           chmod +x prod-test.sh
           ./prod-test.sh
-          FAIL=$?
+          
+      - name: Save if deplomment failed.
+        run: |
+          FAIL=${{ failure() }}
 
       - name: Check deployment failure
         if: env.FAIL
