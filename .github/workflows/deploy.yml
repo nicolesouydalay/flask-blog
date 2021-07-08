@@ -51,16 +51,11 @@ jobs:
           chmod +x prod-test.sh
           ./prod-test.sh
           
-      - name: Save if deplomment failed.
-        run: |
-          FAIL=${{ failure() }}
-
       - name: Check deployment failure
-        if: env.FAIL
+        if: ${{ failure() }}
         run: |
           curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚨 Deployment Failed"
 
       - name: Check deployment success
-        if: env.FAIL == 0
         run: |
           curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
