@@ -96,6 +96,7 @@ def register():
     )
 
 
+"""
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -149,3 +150,4 @@ def login():
     return render_template(
         "login_template.html", title="Nicole Souydalay | ", url=os.getenv("URL")
     )
+"""
