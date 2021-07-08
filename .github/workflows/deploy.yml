@@ -50,8 +50,17 @@ jobs:
         run: |
           chmod +x prod-test.sh
           ./prod-test.sh
-          echo $?
+
+      - name: Save if deployment failed or not
+        run: |
+          FAIL=$?
 
       - name: Check deployment failure
-        if: ${{ failure() }}
-        run: curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚨 Deployment Failed"
+        if: $FAIL
+        run: |
+          curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚨 Deployment Failed"
+
+      - name: Post deployment message to Discord
+        if: $FAIL == 0
+        run: |
+          curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
