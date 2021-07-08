@@ -56,11 +56,11 @@ jobs:
           FAIL=$?
 
       - name: Check deployment failure
-        if: $FAIL
+        if: env.FAIL
         run: |
           curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚨 Deployment Failed"
 
-      - name: Post deployment message to Discord
-        if: $FAIL == 0
+      - name: Check deployment success
+        if: env.FAIL == 0
         run: |
           curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
