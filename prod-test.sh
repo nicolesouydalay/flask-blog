@@ -6,73 +6,73 @@ if [[ $STATUS != "200" ]]; then
     exit 1
 fi
 
-STATUS=$(curl -s -o /dev/null --head -w "%{http_code}" -X GET "nicoles.duckdns.org/health")
+STATUS=$(curl -s -o /dev/null --head -w "%{http_code}" -X GET "https://nicoles.duckdns.org/health")
 
 if [[ $STATUS != "200" ]]; then
     exit 1
 fi
 
-STATUS=$(curl -s -o /dev/null --head -w "%{http_code}" -X GET "nicoles.duckdns.org/register")
+STATUS=$(curl -s -o /dev/null --head -w "%{http_code}" -X GET "https://nicoles.duckdns.org/register")
 
 if [[ $STATUS != "200" ]]; then
     exit 1
 fi
 
-STATUS=$(curl -s -o /dev/null --head -w "%{http_code}" -X POST "nicoles.duckdns.org/register")
+STATUS=$(curl -s -o /dev/null --head -w "%{http_code}" -X POST "https://nicoles.duckdns.org/register")
 
 if [[ $STATUS != "418" ]]; then
     exit 1
 fi
 
-STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d "username=bob" "nicoles.duckdns.org/register")
+STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d "username=bob" "https://nicoles.duckdns.org/register")
 
 if [[ $STATUS != "418" ]]; then
     exit 1
 fi
 
-STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d "password=12345" "nicoles.duckdns.org/register")
+STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d "password=12345" "https://nicoles.duckdns.org/register")
 
 if [[ $STATUS != "418" ]]; then
     exit 1
 fi
 
-STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d "username=bob&password=12345" "nicoles.duckdns.org/register")
+STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d "username=bob&password=12345" "https://nicoles.duckdns.org/register")
 
 if [[ $STATUS != "418" ]]; then
     exit 1
 fi
 
-STATUS=$(curl -s -o /dev/null --head -w "%{http_code}" -X GET "nicoles.duckdns.org/login")
+STATUS=$(curl -s -o /dev/null --head -w "%{http_code}" -X GET "https://nicoles.duckdns.org/login")
 
 if [[ $STATUS != "200" ]]; then
     exit 1
 fi
 
-STATUS=$(curl -s -o /dev/null --head -w "%{http_code}" -X POST "nicoles.duckdns.org/login")
+STATUS=$(curl -s -o /dev/null --head -w "%{http_code}" -X POST "https://nicoles.duckdns.org/login")
 
 if [[ $STATUS != "418" ]]; then
     exit 1
 fi
 
-STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d "username=bob" "nicoles.duckdns.org/login")
+STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d "username=bob" "https://nicoles.duckdns.org/login")
 
 if [[ $STATUS != "418" ]]; then
     exit 1
 fi
 
-STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d "password=12345" "nicoles.duckdns.org/login")
+STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d "password=12345" "https://nicoles.duckdns.org/login")
 
 if [[ $STATUS != "418" ]]; then
     exit 1
 fi
 
-STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d "username=bob&password=5" "nicoles.duckdns.org/register")
+STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d "username=bob&password=5" "https://nicoles.duckdns.org/register")
 
 if [[ $STATUS != "418" ]]; then
     exit 1
 fi
 
-STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d "username=bob&password=123" "nicoles.duckdns.org/login")
+STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d "username=bob&password=123" "https://nicoles.duckdns.org/login")
 
 if [[ $STATUS != "200" ]]; then
     exit 1
