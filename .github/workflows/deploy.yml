@@ -37,10 +37,6 @@ jobs:
         run: |
           ssh my-vm 'cd ${{ secrets.PROJECT_ROOT }} && docker-compose ps'
       
-      - name: Post deployment message to Discord
-        run: |
-          curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
-      
       - name: Check out repository
         uses: actions/checkout@v2
         with:
@@ -50,17 +46,12 @@ jobs:
         run: |
           chmod +x prod-test.sh
           ./prod-test.sh
-
-      - name: Save if deployment failed or not
-        run: |
-          FAIL=$?
-
+          
       - name: Check deployment failure
-        if: env.FAIL
+        if: ${{ failure() }}
         run: |
           curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚨 Deployment Failed"
 
       - name: Check deployment success
-        if: env.FAIL == 0
         run: |
           curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content=🚀 Deployment Successful"
