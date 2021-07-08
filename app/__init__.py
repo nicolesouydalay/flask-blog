@@ -1,5 +1,6 @@
 import os
 from flask import Flask, render_template, request
+
 # from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -96,7 +97,7 @@ def register():
     )
 
 
-'''
+"""
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -150,4 +151,4 @@ def login():
     return render_template(
         "login_template.html", title="Nicole Souydalay | ", url=os.getenv("URL")
     )
-'''
+"""
