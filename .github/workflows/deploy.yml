@@ -30,9 +30,11 @@ jobs:
 
       - name: SSH into AWS instance and deploy portfolio 
         run: >
-          ssh my-vm 'cd ${{ secrets.PROJECT_ROOT }} && git fetch && git reset 
-          --hard origin/master && docker-compose down && 
-          docker-compose up -d --build'
+          ssh my-vm 'cd ${{ secrets.PROJECT_ROOT }}
+          && git fetch
+          && git reset --hard origin/master
+          && docker-compose down
+          && docker-compose up -d --build'
       
       - name: Print container information
         run: |
