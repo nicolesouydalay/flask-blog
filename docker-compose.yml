@@ -11,6 +11,7 @@ services:
       -  .:/myportfolio
     depends_on:
       - db
+
   db:
     image: postgres
     restart: always
@@ -18,6 +19,7 @@ services:
       - .env
     volumes:
       - mydatabase:/var/lib/postgresql/data
+
   nginx:
     image: jonasal/nginx-certbot
     restart: unless-stopped
@@ -31,6 +33,7 @@ services:
       - ./user_conf.d:/etc/nginx/user_conf.d
     depends_on: 
       - web
+
 volumes:
   mydatabase:
-    nginx_secrets:
+  nginx_secrets:
