@@ -72,7 +72,8 @@ if [[ $STATUS != "418" ]]; then
     exit 1
 fi
 
-STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d "username=bob&password=12345" "https://nicoles.duckdns.org/login")
+STATUS=$(curl -s -o /dev/null -w "%{http_code}" -X POST -d
+"username=bob&password=12345" "https://nicoles.duckdns.org/login")
 
 if [[ $STATUS != "200" ]]; then
     exit 1
